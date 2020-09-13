@@ -1,8 +1,8 @@
 /**
-* The App is a 
+* The SalesList is an Application to add Items on a SalesList. 
 *
 ** GITHUB URL https://github.com/mattfisc/cs341.git
-*  App
+* 
 * @author  Matthew Fischer
 * @version 1.0
 * @since   09/13/2020 
@@ -184,10 +184,6 @@ public class App {
 		panel_1.add(title_str);
 		title_str.setFont(new Font("Tahoma", Font.BOLD, 20));
 		
-		JScrollBar scrollBar = new JScrollBar();
-		scrollBar.setBounds(354, 163, 17, 59);
-		panel.add(scrollBar);
-		
 		JLabel total_lbl = new JLabel("Total: ");
 		total_lbl.setBounds(134, 236, 46, 14);
 		panel.add(total_lbl);
@@ -197,8 +193,11 @@ public class App {
 		panel.add(total_output);
 		total_output.setColumns(10);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(35, 163, 271, 62);
+		panel.add(scrollPane);
+		
 		textArea = new JTextArea();
-		textArea.setBounds(46, 163, 325, 59);
-		panel.add(textArea);
+		scrollPane.setViewportView(textArea);
 	}
 }

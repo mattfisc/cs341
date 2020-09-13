@@ -3,25 +3,33 @@ package fischer;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+/**
+ * Item Constructor
+ * 
+ * @param name String is the item name
+ * @param cost double is the cost of the item
+ * @param quantity int is the amount of the quantity
+ */
 public class Item {
 
 	private String name;
 	private double cost;
 	private int quantity;
 	
+	/**
+	 * Item Constructor
+	 * 
+	 * @param name String add to Item attribute name
+	 * @param cost double add to Item attribute cost
+	 * @param quantity int add to Item attribute quantity
+	 */
 	public Item(String name, double cost, int quantity) {
-		/**
-		 * Item Constructor
-		 * 
-		 * @param name String is the item name
-		 * @param cost double is the cost of the item
-		 * @param quantity int is the amount of the quantity
-		 */
+	
 		this.name = name;
 		this.cost = cost;
 		this.quantity = quantity;
 	}
-
+	
 	/**
 	 * @return the name
 	 */
