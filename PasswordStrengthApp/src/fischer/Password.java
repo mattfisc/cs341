@@ -3,6 +3,7 @@
 * checks the quality of a password by the repetitions 
 * of same characters
 *
+** GITHUB URL https://github.com/mattfisc/cs341
 * @author  Matthew Fischer
 * @version 1.0
 * @since   09/06/2020 

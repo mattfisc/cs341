@@ -3,6 +3,7 @@
 * gives all purmutaions of the characters given by the user.
 * minimum number of characters is 4 and max number of characters is 7.
 *
+** GITHUB URL https://github.com/mattfisc/cs341
 * @author  Matthew Fischer
 * @version 1.0
 * @since   09/06/2020 
