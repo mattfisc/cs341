@@ -1,4 +1,12 @@
-
+/**
+* The App is a 
+*
+** GITHUB URL https://github.com/mattfisc/cs341.git
+*  App
+* @author  Matthew Fischer
+* @version 1.0
+* @since   09/13/2020 
+*/
 
 package fischer;
 
