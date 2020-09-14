@@ -91,7 +91,7 @@ public class App {
 	}
 	
 	/**
-	 * add_item_to_list method creates a new Item object from user input and adds to SalesList Object
+	 * add_item_to_list method gets input values and validates input, then creates a new Item object and Displays values
 	 * 
 	 * @param item_name String gets textfield item name input
 	 * @param item_cost double gets textfield item cost input
@@ -99,23 +99,72 @@ public class App {
 	 * 
 	 */
 	public void add_item_to_list() {
+		// DECLARE VARIABLES
+		String item_name = "";
+		double item_cost = 0.0;
+		int item_quantity = 0;
 
-		// GET ITEM NAME
-		String item_name = name_input.getText();
 		
-		// GET ITEM COST
-		double item_cost = Double.parseDouble( cost_input.getText() );
+		// RESET LIST AND ERROR MESSAGES
+		textArea.setText("");
+		
+		// GET ITEM NAME AND VALIDATE
+		item_name = name_input.getText();
+		item_name = validate_string(item_name);
+		if(item_name == null) 
+			textArea.setText(textArea.getText() + "\nName Error. No numbers or symbols");
+
+		
+		// GET ITEM COST AND VALIDATE
+		try {
+			item_cost = Double.parseDouble( cost_input.getText() );
+		}catch(Exception e){
+			item_cost = 0.0;
+			textArea.setText(textArea.getText() + "\nCost Error. This is not a number");
+		}
+		
+		
+		// GET ITEM QUANTITY AND VALIDATE
+		try {
+			item_quantity = Integer.parseInt( quantity_input.getText() );
+		}catch(Exception e) {
+			item_quantity = 0;
+			textArea.setText(textArea.getText() + "\nQuantity Error is not a valid number.  No Decimals.");
+		}
+		
+		
+		// ADD ITEM TO LIST AND DISPLAY IF VALID VALUES
+		if(item_name != null && item_cost != 0.0 && item_quantity != 0) {
+			// CREAT
+			list.addItem(new Item(item_name,item_cost,item_quantity));
 			
-		// GET ITEM QUANTITY
-		int item_quantity = Integer.parseInt( quantity_input.getText() );
+			// DISPLAY ITEM
+			output_list();
+		}
 		
-		// ADD ITEM TO LIST
-		list.addItem(new Item(item_name,item_cost,item_quantity));
-		
-		// DISPLAY ITEM
-		output_list();
 	}
 	
+
+	/**
+	 * add_item_to_list method creates a new Item object from user input and adds to SalesList Object
+	 * 
+	 * @param item_name String is user input
+	 * @param valid boolean remains true if string is only letters
+	 * @return valid string with only letters or null
+	 * 
+	 */
+	private String validate_string(String item_name) {
+		boolean valid = true;
+		for(int i = 0; i < item_name.length(); i++) {
+			if(!Character.isLetter(item_name.charAt(i)))
+				valid = false;
+		}
+		
+		if(valid)
+			return item_name;
+		return null;
+	}
+
 	/**
 	 * output_list method
 	 * Displays SalesList output

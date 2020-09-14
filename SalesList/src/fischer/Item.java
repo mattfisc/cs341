@@ -4,11 +4,8 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
- * Item Constructor
+ * Item Class
  * 
- * @param name String is the item name
- * @param cost double is the cost of the item
- * @param quantity int is the amount of the quantity
  */
 public class Item {
 
