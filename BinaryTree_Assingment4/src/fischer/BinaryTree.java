@@ -62,52 +62,46 @@ public class BinaryTree {
 	}
 	
 	/**
-	 * insertNode inserts a node at bottom of the binary tree 
-	 * 
-	 * @param n int value of new Node
-	 * @param tracker Node tracks through the tree
+	 * insert method adds new node to the tree
+	 * @param root Node is the base of the tree
+	 * @param key int is the value to be added to the tree
+	 * @return Node of the parent added
 	 */
-	public void insertNode(int n) {
-		// INCREASE LENGTH
-		this.length++;
-		
-		// LIST IS EMPTY
-		if(this.head == null) 
-			head = new Node(n);
-		// LIST IS NOT EMPTY
-		else {
-			Node tracker = head;
-			
-			// FIND THE PLACEMENT
-			while(tracker != null) {
-				
-				// n is less than tracker
-				// go left
-				if(n <= tracker.getN()) {
-					// left null add Node
-					if(tracker.getLeft() == null) 
-						tracker.setLeft(new Node(n));
-						
-					// tracker goes left
-					else
-						tracker = tracker.getLeft();
-				}
-				// if n is greater than tracker
-				// go right
-				else if(n > tracker.getN()) {
-					// right is null
-					if(tracker.getRight() == null)
-						tracker.setRight(new Node(n));
-					// tracker goes right
-					else
-						tracker = tracker.getRight();
-				}
-			}
-			// tracker is null
-			// add new node
-			tracker = new Node(n);
-		}
-	}
+	public Node insert(Node root, int n){ 
+	    // CREATE NEW NODE
+	    Node addNode = new Node(n); 
+	   
+	    // PLACEMENT LOCATION TRACKER
+	    Node tracker = root; 
+	   
+	    // PARENT POINTER 
+	    Node parent = null; 
+	   
+	    while (tracker != null) { 
+	    	parent = tracker; 
+	        if (n < tracker.getN()) 
+	        	tracker = tracker.getLeft(); 
+	        else
+	        	tracker = tracker.getRight(); 
+	    } 
+	   
+	    //TREE IS EMPTY
+	    if (parent == null) 
+	    	parent = addNode; 
+	   
+	    // LEFT CHILD 
+	    else if (n < parent.getN()) 
+	    	parent.setLeft(addNode); 
+	   
+	    // RIGHT CHILD
+	    else
+	    	parent.setRight(addNode);; 
+	   
+	    // RETURN NODE PARENT
+	    return parent; 
+	} 
+	
+	
 	
 	/**
 	 * deleteNode will delete a Node off the binary tree
@@ -177,29 +171,14 @@ public class BinaryTree {
 	 * @param n is the value searching for in tree
 	 * @return found n is boolean
 	 */
-	public boolean searchTree(int n) {
-		// empty list
-		if(this.head == null) 
-			head = new Node(n);
-		// not empty list
-		else {
-			Node tracker = head;
-			while(tracker != null) {
-				// n found
-				if( n == tracker.getN() )
-					return true;
-				// if left
-				else if(n < tracker.getN()) {
-					tracker = tracker.getLeft();
-				}
-				// if right 
-				else if(n > tracker.getN()) {
-					tracker = tracker.getRight();
-				}
-				
-			}
-		}
-		return false;
+	public Node searchTree(Node tracer,int n) {
+		if( n == tracer.getN() )
+			return tracer;
+		if( n < tracer.getN() )
+			searchTree(tracer.getLeft(), n);
+		else
+			searchTree(tracer.getRight(),n);
+		return null;
 	}
 	
 	/**
@@ -208,7 +187,7 @@ public class BinaryTree {
 	 */
 	public void printTree(Node head) {
 		// TRANSVERSE TREE
-		System.out.println(head.getN() + " ");
+		System.out.print(head.getN() + " ");
 		if(head.getLeft() != null)
 			printTree(head.getLeft());
 		if(head.getRight() != null)
@@ -216,14 +195,10 @@ public class BinaryTree {
 		
 	}	
 	
-	// prefix top,left,right
-	// postfix 
-	// 
-	
+
 	
 	public int size() {
 		return this.length;
 	}
 	
 }
-
