@@ -7,34 +7,45 @@ public class MyMain {
 		BinaryTree tree = new BinaryTree();
 		tree.setHead(tree.insert(tree.getHead(),8));
 	
-		//assert( nodeNoChildren( tree.getHead()) ): "Node has children";
+		assert( nodeNoChildren( tree.getHead()) ): "Node has children";
 		
 		tree.insert(tree.getHead(),2);
 		tree.insert(tree.getHead(),7);
 		tree.insert(tree.getHead(),9);
 		tree.insert(tree.getHead(),11);
+		tree.insert(tree.getHead(),2);
 		
 	
-		//assert( nodeNoChildren( tree.getHead())  == false): "Node has no children";
+		assert( nodeNoChildren( tree.getHead())  == false): "Node has no children";
 		
 		
-		tree.printTree(tree.getHead());
-		//assert( test_insertNode(tree,4) ): "Node insert not working";
+		tree.printPreFix(tree.getHead());
+		System.out.println("");
+		assert( testInsertNode(tree,4) ): "Node insert not working";
 		
 		
-		
-//		Node x = tree.getHead();
-//		boolean y = tree.getHead().getVisited();
-		//assert( cycleCheck(x) ):"Not a tree! Is a cycle";
+		assert( cycleCheck(tree.getHead()) ):"Not a tree! Is a cycle";
 		
 		
 		// LEFT CHILD SHOULD BE LEFT
 		// RIGHT CHILD SHOULD BE GREATER 
-		//childParentCheck(tree.getHead());
+		childParentCheck(tree.getHead());
 		
 		//System.out.println( tree.searchTree(tree.getHead(), 7).getN() );
 		//tree.printTree(tree.getHead());
+		
+		assert( tree.searchTree(tree.getHead(),8) ):"not in tree";
 
+		BinaryTree.deleteNode(tree.getHead(),7);
+		
+		tree.printPreFix(tree.getHead());
+		System.out.println("");
+		
+		
+		
+		
+		
+		System.out.println("Success");
 	}
 	
 
@@ -53,18 +64,26 @@ public static boolean nodeNoChildren(Node temp_head) {
 }
 
 
-//public static boolean testInsertNode(BinaryTree tree,int n){
-//	if(tree.getHead() == null) {
-//		tree.insert(tree.getHead(),n);
-//		assert( new Node(n) == tree.getHead() && nodeNoChildren(tree.getHead()) ):"Add to empty tree is not working";
-//	}
-//	else {
-//		tree.insert(tree.getHead(),n);
-//		// POST ASSERT
-//		
-//	}
-//	return true;
-//}
+/**
+ * testInsertNode tests if node is inserted into tree
+ * 
+ * @param tree BinaryTree to insert value 
+ * @param n int is the value to insert
+ * @return true if inserted
+ */
+public static boolean testInsertNode(BinaryTree tree,int n){
+	if(tree.getHead() == null) {
+		tree.insert(tree.getHead(),n);
+		assert( new Node(n) == tree.getHead() && nodeNoChildren(tree.getHead()) ):"Add to empty tree is not working";
+	}
+	else {
+		tree.insert(tree.getHead(),n);
+		assert(tree.searchTree(tree.getHead(),n) == false):"Insert failed";
+		// POST ASSERT
+		
+	}
+	return true;
+}
 
 
 /**

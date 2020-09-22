@@ -3,7 +3,6 @@ package fischer;
 /**
  * 
  * @author Matthew Fischer
- *
  */
 public class BinaryTree {
 
@@ -67,19 +66,19 @@ public class BinaryTree {
 	 * @param key int is the value to be added to the tree
 	 * @return Node of the parent added
 	 */
-	public Node insert(Node root, int n){ 
+	public Node insert(Node head, int n){ 
 	    // CREATE NEW NODE
-	    Node addNode = new Node(n); 
+	    Node temp = new Node(n); 
 	   
 	    // PLACEMENT LOCATION TRACKER
-	    Node tracker = root; 
+	    Node tracker = head; 
 	   
 	    // PARENT POINTER 
 	    Node parent = null; 
 	   
 	    while (tracker != null) { 
 	    	parent = tracker; 
-	        if (n < tracker.getN()) 
+	        if (n <= tracker.getN()) 
 	        	tracker = tracker.getLeft(); 
 	        else
 	        	tracker = tracker.getRight(); 
@@ -87,80 +86,85 @@ public class BinaryTree {
 	   
 	    //TREE IS EMPTY
 	    if (parent == null) 
-	    	parent = addNode; 
+	    	parent = temp; 
 	   
 	    // LEFT CHILD 
-	    else if (n < parent.getN()) 
-	    	parent.setLeft(addNode); 
+	    else if (n <= parent.getN()) 
+	    	parent.setLeft(temp); 
 	   
 	    // RIGHT CHILD
 	    else
-	    	parent.setRight(addNode);; 
+	    	parent.setRight(temp);; 
 	   
 	    // RETURN NODE PARENT
-	    return parent; 
+	    return parent;
 	} 
 	
 	
 	
 	/**
-	 * deleteNode will delete a Node off the binary tree
+	 * deleteNode function will delete a int in the binarytree
 	 * 
-	 * @param n int is the number to delete in the binary tree
-	 * @param tracker Node traces through the binary tree
+	 * @param parent is the tracing head node through the tree
+	 * @param n is the value to find and delete
+	 * @param child Node to be deleted Node with value n
 	 */
-	public void deleteNode(int n) {
-		// EMPTY LIST
-		if(this.head == null) 
-			head = new Node(n);
-		// NOT EMPTY LIST
-		else {
-			Node tracker = head;
-			while(tracker != null) {
+	public static void deleteNode(Node parent,int n) {
+		
+		Node child = null;
+		
+		if(parent.getLeft().getN() == n)
+			child = parent.getLeft();
+		if(parent.getRight().getN() == n)
+			child = parent.getRight();
+		
+		// CHILD IS NODE TO DELETE
+		if(child != null) {
 
-				// NODE FOUND
-				if( n == tracker.getN() )
-					// NO CHILDREN
-					if(tracker.getLeft() == null && tracker.getRight() == null)
-						tracker = null;
-					// BOTH CHILDREN EXIST
-					else if(tracker.getLeft() != null && tracker.getRight() != null) {
-						// GET RIGHT CHILD
-						Node rightChild = tracker.getRight();
-						// GET LEFT CHILD
-						Node leftChild = tracker.getLeft();
-						// REMOVE NODE
-						// ADD RIGHT SIDE
-						tracker = rightChild;
-						// ADD LEFT UNDER RIGHT CHILD NEXT SPOT
-						while(tracker.getLeft() != null) {
-							tracker = tracker.getLeft();
-						}
-						// ADD LEFT CHILD ONTO RIGHT TREE
-						tracker = leftChild;
-					}
-					// ONLY LEFT CHILD EXISTS
-					else if(tracker.getLeft() != null) {
-						Node temp = tracker.getLeft();
-						// DELETE AND SAVE LEFT SIDE OF TREE
-						tracker = temp;
-					}
-					// ONLY RIGHT CHILD EXISTS
-					else if(tracker.getRight() != null) {
-						Node temp = tracker.getRight();
-						// DELETE AND SAVE RIGHT SIDE OF TREE
-						tracker = temp;
-					}
-				// SEARCH LEFT
-				else if(n < tracker.getN()) {
-					tracker = tracker.getLeft();
-				}
-				// SEARCH RIGHT 
-				else if(n > tracker.getN()) {
-					tracker = tracker.getRight();
-				}
-				
+			// NO CHILDREN
+			if(child.getLeft() == null && child.getRight() == null) {
+				child = null;
 			}
+			// BOTH CHILDREN
+			else if(child.getLeft() != null && child.getRight() != null) {
+				Node temp = child.getRight();
+				
+				if(parent.getLeft() == child)
+					parent.setLeft(child.getLeft());
+				else
+					parent.setRight(child.getLeft());
+				
+				child = child.getLeft();
+				while(child.getRight() != null)
+					child = child.getRight();
+				
+				child.setRight(temp);
+			}
+			// LEFT CHILDREN
+			else if(child.getRight() == null) {
+				if(parent.getLeft() == child)
+					parent.setLeft(child.getLeft());
+				else
+					parent.setRight(child.getLeft());
+			}
+
+			// RIGHT CHILDREN
+			else if(child.getLeft() == null) {
+				if(parent.getLeft() == child)
+					parent.setLeft(child.getRight());
+				else
+					parent.setRight(child.getRight());
+			}
+				
+		
+		}
+		// SEARCH LEFT
+		else if(n < parent.getN()) {
+			deleteNode(parent.getLeft(),n);
+		}
+		// SEARCH RIGHT
+		else if(n > parent.getN()) {
+			deleteNode(parent.getRight(),n);
 		}
 		
 	}
@@ -171,29 +175,55 @@ public class BinaryTree {
 	 * @param n is the value searching for in tree
 	 * @return found n is boolean
 	 */
-	public Node searchTree(Node tracer,int n) {
+	public boolean searchTree(Node tracer,int n) {
 		if( n == tracer.getN() )
-			return tracer;
+			return true;
 		if( n < tracer.getN() )
 			searchTree(tracer.getLeft(), n);
 		else
 			searchTree(tracer.getRight(),n);
-		return null;
+		return false;
 	}
 	
 	/**
-	 * printTree display the tree Print Center,Left,Right
-	 * @param Head
+	 * printTree display the tree Print Left,Node value, Right
+	 * @param tracer Node is the temp Node that traces through the binary tree
 	 */
-	public void printTree(Node head) {
+	public void printInOrder(Node tracer) {
 		// TRANSVERSE TREE
-		System.out.print(head.getN() + " ");
-		if(head.getLeft() != null)
-			printTree(head.getLeft());
-		if(head.getRight() != null)
-			printTree(head.getRight());
+		
+		if(tracer.getLeft() != null)
+			printInOrder(tracer.getLeft());
+		
+		System.out.print(tracer.getN() + " ");
+		
+		if(tracer.getRight() != null)
+			printInOrder(tracer.getRight());
 		
 	}	
+	public void printPreFix(Node tracer) {
+		// TRANSVERSE TREE
+		System.out.print(tracer.getN() + " ");
+		
+		if(tracer.getLeft() != null)
+			printPreFix(tracer.getLeft());
+		
+		if(tracer.getRight() != null)
+			printPreFix(tracer.getRight());
+		
+	}
+	public void printPostFix(Node tracer) {
+		// TRANSVERSE TREE
+		
+		if(tracer.getLeft() != null)
+			printPostFix(tracer.getLeft());
+		
+		if(tracer.getRight() != null)
+			printPostFix(tracer.getRight());
+		
+		System.out.print(tracer.getN() + " ");
+		
+	}
 	
 
 	
