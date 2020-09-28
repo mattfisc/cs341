@@ -6,7 +6,13 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
+/**
+ * 
+ * @author Matthew Fischer
+ *
+ */
 public class ReadFile {
 
 	public JButton btn_open;
@@ -18,6 +24,9 @@ public class ReadFile {
 	
 	private LinkedList list;
 	
+	/**
+	 * 
+	 */
 	public ReadFile() {
 		list = new LinkedList();
 
@@ -26,27 +35,33 @@ public class ReadFile {
 		fc.setDialogTitle("Input File");
 		
 		
-		readFileToList();
 	}
 	
+	/**
+	 * readFileToList function reads a chosen file and adds to a linked list.
+	 * 
+	 */
 	public void readFileToList() {
 		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		response = fc.showOpenDialog(null);
 		
+		//SET FILTER
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+		fc.setFileFilter(filter);
+		
 		if(response == JFileChooser.APPROVE_OPTION) {
 			file = fc.getSelectedFile();
+			
 			try {
 				fileIn = new Scanner(file);
 				
 				if(file.isFile()) {
-					while(fileIn.hasNextLine()) {
-						String next = fileIn.next();
+					while(fileIn.hasNext()) {
 						try {
-							list.addNode(Double.parseDouble(next));
-							
+							list.addNode(Double.parseDouble( fileIn.next() ));
 						}
 						catch(Exception e) {
-							System.out.println("not double input");
+							e.printStackTrace();
 						}
 					}
 				}

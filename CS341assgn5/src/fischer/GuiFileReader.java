@@ -14,6 +14,14 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 
+/**
+ * This application reads a file of real numbers and gathers them into a linked list.  
+ * Then returns a mean and a standard deviation.
+ * 
+ * @author Matthew Fischer
+ * @version 1
+ * @since 9/27/2020
+ */
 public class GuiFileReader {
 	final JFileChooser fc = new JFileChooser();
 
@@ -59,22 +67,34 @@ public class GuiFileReader {
 			
 		});
 	}
+	
+	/**
+	 * uploadFile function on action listener click event upload file
+	 * 
+	 * @param rf ReadFile class creates object that reads a file and stores a LinkedList of real number values
+	 * @param mean_num String stores a string of a real number of the mean of the values in the LinkedList
+	 * @param standardDeviation_num String stores the string of a real number of the standard deviation of 
+	 * the values of the LinkedList
+	 */
 	public void uploadFile() {
+		// RESET DISPLAY FILEDS ON UPLOAD CLICK
+		textField_mean.setText("");
+		textField_sd.setText("");
+		
 		ReadFile rf = new ReadFile();
+		rf.readFileToList();
 		list = rf.getList();
 		
 		
 		// CALCULATE MEAN
-		double mean_num = list.get_mean();
+		String mean_num = list.get_mean();
 		
 		// CALCULATE SD
-		double standardDeviation_num = list.get_standardDeviation();
-
-		System.out.println("size" + list.size());
+		String standardDeviation_num = list.get_standard_deviation(Double.parseDouble(mean_num));
 		
 		// DISPLAY BOTH
-		textField_mean.setText(Double.toString(mean_num));
-		textField_sd.setText(Double.toString(standardDeviation_num));
+		textField_mean.setText(mean_num);
+		textField_sd.setText(standardDeviation_num);
 	
 	}
 	
@@ -117,12 +137,9 @@ public class GuiFileReader {
 		lbl_sd.setBounds(65, 127, 106, 14);
 		panel_main.add(lbl_sd);
 		
-		JPanel upload_file_panel = new JPanel();
-		upload_file_panel.setBounds(0, 0, 131, 69);
-		panel_main.add(upload_file_panel);
-		
 		btn_upload_file = new JButton("Upload File");
-		upload_file_panel.add(btn_upload_file);
+		btn_upload_file.setBounds(25, 56, 120, 23);
+		panel_main.add(btn_upload_file);
 		
 		list = new LinkedList();
 	}
