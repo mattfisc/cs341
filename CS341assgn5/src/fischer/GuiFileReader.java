@@ -80,21 +80,31 @@ public class GuiFileReader {
 		// RESET DISPLAY FILEDS ON UPLOAD CLICK
 		textField_mean.setText("");
 		textField_sd.setText("");
+		String mean_num= "";
+		
 		
 		ReadFile rf = new ReadFile();
-		rf.readFileToList();
-		list = rf.getList();
+		try {
+			rf.readFileToList();
+			list = rf.getList();
+			// CALCULATE MEAN
+			mean_num = list.get_mean();
+			
+			// CALCULATE SD
+			String standardDeviation_num = list.get_standard_deviation(Double.parseDouble(mean_num));
+			// DISPLAY BOTH
+			textField_mean.setText(mean_num);
+			textField_sd.setText(standardDeviation_num);
+			
+		}catch(Exception e) {
+			//e.printStackTrace();
+			System.out.println("Error with file");
+		}
 		
 		
-		// CALCULATE MEAN
-		String mean_num = list.get_mean();
 		
-		// CALCULATE SD
-		String standardDeviation_num = list.get_standard_deviation(Double.parseDouble(mean_num));
 		
-		// DISPLAY BOTH
-		textField_mean.setText(mean_num);
-		textField_sd.setText(standardDeviation_num);
+		
 	
 	}
 	

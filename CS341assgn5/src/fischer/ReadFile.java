@@ -53,26 +53,40 @@ public class ReadFile {
 			file = fc.getSelectedFile();
 			
 			try {
+				
 				fileIn = new Scanner(file);
 				
-				if(file.isFile()) {
-					while(fileIn.hasNext()) {
-						try {
-							list.addNode(Double.parseDouble( fileIn.next() ));
-						}
-						catch(Exception e) {
-							e.printStackTrace();
+				if(file.length() == 0) {
+					System.out.println("File is empty");
+					if(file.isFile()) {
+						
+						while(fileIn.hasNext()) {
+							String num = fileIn.next();
+							try {
+								list.addNode(Double.parseDouble( num ));
+							}
+							catch(Exception e) {
+								e.printStackTrace();
+							}
 						}
 					}
+					else {
+						System.out.println("that was not a file");
+					}
 				}
-				else {
-					System.out.println("that was not a file");
-				}
+			
 				fileIn.close();
 				
 			}catch(FileNotFoundException e) {
-				e.printStackTrace();
+				System.out.println("error trying to read file");
+				//e.printStackTrace();
+			}catch(NullPointerException e) {
+				System.out.println("File is emtpy");
+				
 			}
+		}
+		else {
+			System.out.println("file did not load");
 		}
 		
 		file = fc.getSelectedFile();
