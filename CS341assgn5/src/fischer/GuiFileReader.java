@@ -86,15 +86,7 @@ public class GuiFileReader {
 		ReadFile rf = new ReadFile();
 		try {
 			rf.readFileToList();
-			list = rf.getList();
-			// CALCULATE MEAN
-			mean_num = list.get_mean();
 			
-			// CALCULATE SD
-			String standardDeviation_num = list.get_standard_deviation(Double.parseDouble(mean_num));
-			// DISPLAY BOTH
-			textField_mean.setText(mean_num);
-			textField_sd.setText(standardDeviation_num);
 			
 		}catch(Exception e) {
 			//e.printStackTrace();
@@ -102,6 +94,22 @@ public class GuiFileReader {
 		}
 		
 		
+		list = rf.getList();
+		
+		// Empty file
+		if(list.getHead() == null) {
+			textField_mean.setText("file was empty");
+			
+		}
+	
+		// CALCULATE MEAN
+		mean_num = list.get_mean();
+		
+		// CALCULATE SD
+		String standardDeviation_num = list.get_standard_deviation(Double.parseDouble(mean_num));
+		// DISPLAY BOTH
+		textField_mean.setText(mean_num);
+		textField_sd.setText(standardDeviation_num);
 		
 		
 		

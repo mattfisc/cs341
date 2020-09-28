@@ -44,10 +44,7 @@ public class ReadFile {
 	public void readFileToList() {
 		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		response = fc.showOpenDialog(null);
-		
-		//SET FILTER
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
-		fc.setFileFilter(filter);
+
 		
 		if(response == JFileChooser.APPROVE_OPTION) {
 			file = fc.getSelectedFile();
@@ -56,7 +53,7 @@ public class ReadFile {
 				
 				fileIn = new Scanner(file);
 				
-				if(file.length() == 0) {
+				if(file.length() != 0) {
 					System.out.println("File is empty");
 					if(file.isFile()) {
 						
@@ -80,9 +77,6 @@ public class ReadFile {
 			}catch(FileNotFoundException e) {
 				System.out.println("error trying to read file");
 				//e.printStackTrace();
-			}catch(NullPointerException e) {
-				System.out.println("File is emtpy");
-				
 			}
 		}
 		else {
