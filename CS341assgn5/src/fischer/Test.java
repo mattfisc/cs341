@@ -13,10 +13,6 @@ public class Test {
 		list.addNode(6);
 		list.addNode(6);
 		
-		
-		
-		
-		
 		list.addNode(5);
 		assert(new Node(20.3) == list.getTail()):"node not added to tail";
 		
@@ -27,7 +23,5 @@ public class Test {
 		assert(n_mean == 5.75):" mean is not 5.75";
 		assert(Double.parseDouble( list.get_standard_deviation(n_mean) ) == .5): "standard deviation is not .5";
 		
-		
 	}
-	
 }

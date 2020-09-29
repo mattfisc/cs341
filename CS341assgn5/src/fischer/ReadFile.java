@@ -93,8 +93,5 @@ public class ReadFile {
 		return list;
 	}
 
-	
-	
-	
-	
 }
+
