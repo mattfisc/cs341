@@ -53,12 +53,20 @@ public class ReadFile {
 				
 				fileIn = new Scanner(file);
 				
+				// Test for an empty file as input
 				if(file.length() != 0) {
 					System.out.println("File is empty");
+				
+					// file type
 					if(file.isFile()) {
 						
 						while(fileIn.hasNext()) {
+							// GET DATA
 							String num = fileIn.next();
+							
+							// Test for invalid input, such as "3b4" or "3,4"
+							// only real numbers used and put in the linkedlist
+							// AVOID BLANKS
 							try {
 								list.addNode(Double.parseDouble( num ));
 							}

@@ -84,12 +84,12 @@ public class GuiFileReader {
 		
 		
 		ReadFile rf = new ReadFile();
+		
 		try {
 			rf.readFileToList();
 			
-			
 		}catch(Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 			System.out.println("Error with file");
 		}
 		
