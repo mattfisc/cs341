@@ -1,0 +1,19 @@
+Keys	and	values
+-----------------------------------------------
+Key:	private	Value:	1
+Key:	void	Value:	2
+Key:	double	Value:	1
+Key:	for	Value:	4
+Key:	String	Value:	7
+Key:	do	Value:	2
+Key:	while	Value:	2
+Key:	Double	Value:	1
+Key:	int	Value:	9
+Key:	Integer	Value:	1
+Key:	public	Value:	8
+Key:	protected	Value:	1
+Key:	else	Value:	5
+Key:	try	Value:	3
+Key:	catch	Value:	2
+Key:	class	Value:	3
+Key:	if	Value:	6
