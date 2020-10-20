@@ -72,16 +72,23 @@ public class App {
 	}
 	
 	public void search_event() {
-		search_input.addActionListener(new ActionListener() {
+		search_btn.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int num = 0;
-				if(search_input.getText().equals("")) {
+				
+				if(!search_input.getText().equals("")) {
+					String num_str = search_input.getText();
+					int num = 0;
+					
 					try {
-						num = Integer.parseInt( search_input.getText() );
+						num = Integer.parseInt( num_str );
+						Book temp = BookList.get_book_by_sku(num);
+						display.setText(temp.toString());
+					}catch(Exception err) {
+						err.printStackTrace();
 					}
-					Book temp = BookList.get_book_by_sku(num);
+					
 				}
 						
 				
