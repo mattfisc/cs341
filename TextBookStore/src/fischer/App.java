@@ -1,3 +1,4 @@
+package fischer;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -44,6 +45,8 @@ public class App {
 	private JTextArea display;
 	private JButton search_btn;
 
+	private WriteFile file;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -64,12 +67,28 @@ public class App {
 	 * Create the application.
 	 */
 	public App() {
+		
 		initialize();
+		load_list();
 		add_event();
 		delete_event();
 		radio_btn_event();
 		search_event();
 	}
+	
+	public void load_list() {
+		
+		String load_list = file.read_from_file();
+		if(load_list.equals("")) 
+			display.setText("List is empty");
+		else
+			display.setText(load_list);
+	}
+	
+	public void save_list() {
+		file.write_to_file();
+	}
+	
 	
 	public void search_event() {
 		search_btn.addActionListener(new ActionListener() {
@@ -242,8 +261,10 @@ public class App {
 						JOptionPane.showMessageDialog(null, sku + " SKU already created.  Quantity increased");
 					}
 				}
-				//sort_by_event();
+				// DISPLAY LIST
 				display_list();
+				// SAVE LIST
+				save_list();
 				
 			}
 			
@@ -254,6 +275,8 @@ public class App {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		file = new WriteFile();
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

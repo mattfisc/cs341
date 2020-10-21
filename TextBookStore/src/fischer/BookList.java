@@ -1,3 +1,4 @@
+package fischer;
 import java.util.LinkedList;
 
 public class BookList {
