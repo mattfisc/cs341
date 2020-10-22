@@ -32,7 +32,7 @@ public class WriteFile {
 			
 			// HEADER
 			file.write("Keys\tand\tvalues\n");
-			file.write("-----------------------------------------------\n");
+			file.write("---------------------------------------\n");
 			
 			// PRINT KEY AND VALUE
 			for (String i : Hash.map.keySet()) {

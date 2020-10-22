@@ -17,18 +17,15 @@ import java.util.Scanner;
 public class WriteFile {
 
 	private FileWriter fw;
-	private FileReader fr;
+	private File file;
 	private String file_name;
 	
-	/**
-	 * WriteFile constructor creates and writes to a file
-	 */
 	public WriteFile() {
 		file_name = "list.txt";
 	}
 	
 	/**
-	 * hashToFile function write HashMap to file
+	 * write_to_file function use BookList and writes values to a file
 	 */
 	public void write_to_file() {
 		
@@ -37,14 +34,13 @@ public class WriteFile {
 			fw = new FileWriter(file_name);
 			
 			// READ LIST TO FILE
-			for(int i = 0; i < BookList.booklist.size(); i++) {
-				fw.append(BookList.booklist.get(i).getSku() + " " +
+			for(int i = 0; i < BookList.booklist.size(); i++) { 
+				fw.write( BookList.booklist.get(i).getSku() + " " +
 						BookList.booklist.get(i).getTitle() + " " +
 						BookList.booklist.get(i).getPrice() + " " +
-						BookList.booklist.get(i).getQuantity()
+						BookList.booklist.get(i).getQuantity() + "\n"
 						);
 			}
-			
 			fw.close();
 		}
 		catch(Exception e) {
@@ -54,25 +50,42 @@ public class WriteFile {
 		
 	}
 	
-	public String read_from_file() {
-		String str = "";
+	/**
+	 * read_from_file function reads file and stores in a LinkedList BookList.booklist
+	 */
+	public void read_from_file() {
+		
 			try {
 				// CREATE FILE WRITER
-				fr= new FileReader(file_name);
-				Scanner input = new Scanner(fr);
+				file = new File(file_name);
+				Scanner input = new Scanner(file);
 				
 				// READ TO A STRING
-				while(input.hasNext()) {
-					str += input;
-				}
+				while(input.hasNextLine() && file.exists()) {
+					
+					String line = input.nextLine();
+					Scanner book_reader = new Scanner(line);
 				
-				fw.close();
+					// verify all attributes
+					try {
+						int sku = book_reader.nextInt();
+						String title = book_reader.next();
+						double price = book_reader.nextDouble();
+						int quantity = book_reader.nextInt();
+						
+						// create book
+						Book book = new Book(sku,title,price);
+						book.setQuantity(quantity);
+						
+						BookList.booklist.add(book);
+					}catch(Exception err) {
+						err.printStackTrace();
+					}
+				}
+
 			}
 			catch(Exception e) {
 				e.printStackTrace();
 			}
-			
-			return str;
 		}
-	
 }

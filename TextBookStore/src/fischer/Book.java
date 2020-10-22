@@ -16,7 +16,9 @@ public class Book {
 		this.quantity = 1;
 	}
 	
-	
+	/**
+	 * toString override function to display all book attributes
+	 */
 	public String toString() {
 		return this.getSku() + " " + this.getTitle() + " " + this.getPrice() + " " + this.getQuantity();
 	}
