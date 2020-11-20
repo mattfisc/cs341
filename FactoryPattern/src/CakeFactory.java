@@ -7,12 +7,18 @@ public class CakeFactory {
 	 * @return Cake object
 	 */
 	public Cake orderCake(String type) {
-		if(type.equals("vanilla"))
-			return new VanillaCake();
+		Cake cake = null;
+		if(type.equals("vanilla")) 
+			cake = new VanillaCake();
 		else if(type.equals("chocolate"))
-			return new ChocolateCake();
-		else
-			return new LemonCake();
+			cake = new ChocolateCake();
+		else 
+			cake = new LemonCake();
+		
+		cake.addIngredient(cake.baseFlavor);
+		cake.addBasicIngredients();
+		
+		return cake;
 	}
 	
 }

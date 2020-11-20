@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class LemonCake extends Cake {
 
@@ -7,5 +8,6 @@ public class LemonCake extends Cake {
 	public LemonCake() {
 		name = "Lemon Cake";
 		baseFlavor = "Citron zest";
+		ingredients = new ArrayList<String>();
 	}
 }

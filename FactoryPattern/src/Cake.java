@@ -22,11 +22,23 @@ public abstract class Cake {
 		return baseFlavor;
 	}
 
-
+	/**
+	 * addIngredient function adds one ingredient to arraylist attribute
+	 * @param ingredient String added to ingredients arraylist
+	 */
+	public void addIngredient(String ingredient) {
+		ingredients.add(ingredient);
+	}
+	
+	/**
+	 * getIngredients function retrieves array string of ingredients
+	 * @return String list of ingredients
+	 */
 	public String getIngredients() {
 		String str = "";
+		str += this.name + " ingredients: \n-----------\n";
 		for(int i = 0; i < ingredients.size(); i++) {
-			str += "/n" + ingredients.get(i);
+			str +=  ingredients.get(i) + "\n" ;
 		}
 		return str;
 	}
@@ -58,5 +70,14 @@ public abstract class Cake {
 	public String toString() {
 		return name + " with a base flavor of " + baseFlavor;
 	}
-	
+
+	/**
+	 * addBasicIngredients function add basic cake ingredients to ingredients list
+	 */
+	public void addBasicIngredients() {
+		this.addIngredient("flour");
+		this.addIngredient("water");
+		this.addIngredient("sugar");
+		this.addIngredient("salt");
+	}
 }
