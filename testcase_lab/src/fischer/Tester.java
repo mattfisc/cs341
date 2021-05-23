@@ -2,7 +2,7 @@ package fischer;
 
 import java.util.NoSuchElementException;
 
-public class tester {
+public class Tester {
  
 	public static void main(String[] args) {
 		//A 
@@ -35,6 +35,8 @@ public class tester {
 		
 		//D
 		int value = q.dequeue();
+		Node test = q.getHead();
+		assert(test,null):"failure";
 		if(q.getHead() != null) {
 			System.out.println("Test2 failure");
 			return;
